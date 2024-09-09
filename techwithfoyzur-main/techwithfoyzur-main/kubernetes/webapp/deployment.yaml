@@ -1,0 +1,29 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: nocalhost
+  labels:
+    app: django-demo-webapp
+spec:
+  replicas: 3
+  selector:
+    matchLabels:
+      app: django-demo-webapp
+  template:
+    metadata:
+      labels:
+        app: django-demo-webapp
+    spec:
+      containers:
+      - name: django
+        image: ghcr.io/bhordupur/django:demo
+        imagePullPolicy: Always
+        resources:
+          requests:
+            cpu: 100m
+            memory: 100Mi
+          limits:
+            cpu: 120m
+            memory: 130Mi
+        ports:
+        - containerPort: 8080
